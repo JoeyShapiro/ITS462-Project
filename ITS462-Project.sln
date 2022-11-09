@@ -7,10 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectServer", "ProjectSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectClient", "ProjectClient\ProjectClient.csproj", "{878E2AEC-60C0-44E1-B812-540D2E8304C0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76A01F4B-1436-4E50-BBF5-FF3D47829260}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supporting Documents", "Supporting Documents", "{76A01F4B-1436-4E50-BBF5-FF3D47829260}"
 	ProjectSection(SolutionItems) = preProject
+		data.sql = data.sql
 		README.md = README.md
+		RESET_DB.bat = RESET_DB.bat
 	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +30,10 @@ Global
 		{878E2AEC-60C0-44E1-B812-540D2E8304C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{878E2AEC-60C0-44E1-B812-540D2E8304C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{878E2AEC-60C0-44E1-B812-540D2E8304C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
