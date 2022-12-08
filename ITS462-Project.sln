@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.32912.340
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectServer", "ProjectServer\ProjectServer.csproj", "{336B31F6-1163-48AB-903F-EDA6E7B29DC7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectClient", "ProjectClient\ProjectClient.csproj", "{878E2AEC-60C0-44E1-B812-540D2E8304C0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supporting Documents", "Supporting Documents", "{76A01F4B-1436-4E50-BBF5-FF3D47829260}"
@@ -16,16 +14,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supporting Documents", "Sup
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Response Samples", "Response Samples", "{0558F784-ABD5-438F-898D-5C909C6A5B27}"
+	ProjectSection(SolutionItems) = preProject
+		xmlStructures\Sample.GetDeviceDetails.xml = xmlStructures\Sample.GetDeviceDetails.xml
+		xmlStructures\Sample.GetDevices.xml = xmlStructures\Sample.GetDevices.xml
+		xmlStructures\Sample.GetFilteredDevicesList.xml = xmlStructures\Sample.GetFilteredDevicesList.xml
+		xmlStructures\Sample.GetFilters.xml = xmlStructures\Sample.GetFilters.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectServerRestfulCore", "ProjectServerRestfulCore\ProjectServerRestfulCore.csproj", "{26A4FCDA-0D27-4A61-8F40-2F51C22B3719}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{336B31F6-1163-48AB-903F-EDA6E7B29DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{336B31F6-1163-48AB-903F-EDA6E7B29DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{336B31F6-1163-48AB-903F-EDA6E7B29DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{336B31F6-1163-48AB-903F-EDA6E7B29DC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{878E2AEC-60C0-44E1-B812-540D2E8304C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{878E2AEC-60C0-44E1-B812-540D2E8304C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{878E2AEC-60C0-44E1-B812-540D2E8304C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,9 +38,16 @@ Global
 		{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A8A0BD6-455E-4862-A67F-2A0E384DB50B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26A4FCDA-0D27-4A61-8F40-2F51C22B3719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26A4FCDA-0D27-4A61-8F40-2F51C22B3719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26A4FCDA-0D27-4A61-8F40-2F51C22B3719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26A4FCDA-0D27-4A61-8F40-2F51C22B3719}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0558F784-ABD5-438F-898D-5C909C6A5B27} = {76A01F4B-1436-4E50-BBF5-FF3D47829260}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BDD78141-2A01-47E8-BF12-A65C44269E21}
