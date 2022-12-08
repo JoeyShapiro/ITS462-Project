@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <!-- root node -->
+    <xsd:element name="project" type="Project" />
+
+    <!-- project type -->
+    <xsd:complexType name="Project">
+        <xsd:sequence>
+            <xsd:element name="results" type="Results"
+                minOccurs="1" maxOccurs="1" />
+            <xsd:element name="error" type="xsd:string"
+                minOccurs="0" maxOccurs="1" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- results type -->
+    <xsd:complexType name="Results">
+        <xsd:sequence>
+            <!-- Get Device Details -->
+            <xsd:element name="device" type="DeviceDetailed"
+                minOccurs="0" maxOccurs="1" />
+            <!-- Get Devices & Filters Devices -->
+            <xsd:element name="devices" type="Devices"
+                minOccurs="0" maxOccurs="1" />
+            <!-- Get Filters -->
+            <xsd:element name="filters" type="Filters"
+                minOccurs="0" maxOccurs="1" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- detailed device -->
+    <xsd:complexType name="DeviceDetailed">
+        <xsd:sequence>
+            <xsd:element name="computer_type" type="xsd:string" />
+            <xsd:element name="vendor" type="xsd:string" />
+            <xsd:element name="model" type="xsd:string" />
+            <xsd:element name="price" type="xsd:string" />
+            <xsd:element name="link" type="xsd:string" />
+            <xsd:element name="description" type="xsd:string" />
+            <xsd:element name="specs" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- devices -->
+    <xsd:complexType name="Devices">
+        <xsd:sequence>
+            <xsd:element name="device" type="Device" 
+                minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- device -->
+    <xsd:complexType name="Device">
+        <xsd:sequence>
+            <xsd:element name="model" type="xsd:string" />
+            <xsd:element name="price" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- filters -->
+    <xsd:complexType name="Filters">
+        <xsd:sequence>
+            <xsd:element name="filter" type="xsd:string" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

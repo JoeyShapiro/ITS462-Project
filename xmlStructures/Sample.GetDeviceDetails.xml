@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="project.xsd">
+    <results>
+        <device>
+            <computer_type></computer_type>
+            <vendor></vendor>
+            <model></model>
+            <price></price>
+            <link></link>
+            <description></description>
+            <specs></specs>
+        </device>
+    </results>
+
+    <error></error>
+</project>
