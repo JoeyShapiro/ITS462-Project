@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectClient", "ProjectCli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supporting Documents", "Supporting Documents", "{76A01F4B-1436-4E50-BBF5-FF3D47829260}"
 	ProjectSection(SolutionItems) = preProject
-		data.sql = data.sql
+		data\data.sql = data\data.sql
 		README.md = README.md
 		RESET_DB.bat = RESET_DB.bat
 	EndProjectSection
