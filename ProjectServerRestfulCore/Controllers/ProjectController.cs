@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectServerRestful.Services;
 
 namespace ProjectServerRestfulCore.Controllers
 {
@@ -9,28 +10,28 @@ namespace ProjectServerRestfulCore.Controllers
         [HttpGet]
         public IActionResult GetDevices()
         {
-            return Content("");
+            return Content(Database.GetDevicesFromDBAsXML("CALL list_devices();"));
         }
 
         [Route("GetDeviceDetails")]
         [HttpGet]
         public IActionResult GetDeviceDetails([FromQuery] int id)
         {
-            return Content("");
+            return Content(Database.GetDeviceDetailsFromDBAsXML("CALL get_device_details(" + id + ");"));
         }
 
         [Route("GetFilters")]
         [HttpGet]
         public IActionResult GetFilters()
         {
-            return Content("");
+            return Content(Database.GetDeviceFiltersFromDBAsXML());
         }
 
         [Route("GetFilteredDevices")]
         [HttpGet]
-        public IActionResult GetFiltedDevices([FromQuery] string filter)
+        public IActionResult GetFiltedDevices([FromQuery] string filter, string chosen)
         {
-            return Content("");
+            return Content(Database.GetDevicesFromDBAsXML("CALL list_filtered_devices(\""+filter+"\", \""+chosen+"\");"));
         }
     }
 }
