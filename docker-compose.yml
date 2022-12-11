@@ -1,21 +1,14 @@
-version: '3.4'
-
+version: '4.8.1'
 services:
-  its462-db:
-    image: mysql
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'project'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
-    ports:
-      - '9906:3306'
-    expose:
-      - '3306'
-    volumes:
-      - its462-db:/var/lib/mysql
-      - ./data:/docker-entrypoint-initdb.d:ro
-# Names our volume
-volumes:
-  its462-db:
+    its462-db:
+        container_name: its462-db
+        image: mysql
+        volumes:
+            - ./data:/docker-entrypoint-initdb.d:ro
+        environment:
+          MYSQL_DATABASE: 'project'
+          MYSQL_USER: 'user'
+          MYSQL_PASSWORD: 'password'
+          MYSQL_ROOT_PASSWORD: 'password'
+        ports:
+            - "9906:3306"

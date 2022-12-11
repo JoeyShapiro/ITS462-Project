@@ -1,4 +1,4 @@
-﻿using project;
+﻿use project;
 
 create table devices
 (
