@@ -3,7 +3,7 @@ using System;
 
 namespace ProjectServerRestful.Services
 {
-	public class ScraperService //: IHostedService
+	public class ScraperService
 	{
 		public const int MAX_AFFECTED = 50;
 
@@ -100,46 +100,12 @@ namespace ProjectServerRestful.Services
                 // add to database and increase the counter by 1. if it fails, we dont care
                 affected += Database.AddDevice(type, brand, model, price, link, desc, specs);
 
+				// check if it has done too many
 				if (affected >= MAX_AFFECTED / 20) // make it smaller, bestbuy takes a while
 					break;
             }
 
             return affected;
 		}
-
-		//public Task StartAsync(CancellationToken cancellationToken)
-		//{
-		//    TimeSpan interval = TimeSpan.FromHours(24);
-		//    //calculate time to run the first time & delay to set the timer
-		//    //DateTime.Today gives time of midnight 00.00
-		//    var nextRunTime = DateTime.Today.AddDays(1).AddHours(1);
-		//    var curTime = DateTime.Now;
-		//    var firstInterval = nextRunTime.Subtract(curTime);
-
-		//    Action action = () =>
-		//    {
-		//        //var t1 = Task.Delay(firstInterval);
-		//        //t1.Wait();
-		//        ////remove inactive accounts at expected time
-		//        //RemoveScheduledAccounts(null);
-		//        ////now schedule it to be called every 24 hours for future
-		//        //// timer repeates call to RemoveScheduledAccounts every 24 hours.
-		//        //_timer = new Timer(
-		//        //    RemoveScheduledAccounts,
-		//        //    null,
-		//        //    TimeSpan.Zero,
-		//        //    interval
-		//        //);
-		//    };
-
-		//    // no need to await this call here because this task is scheduled to run much much later.
-		//    Task.Run(action);
-		//    return Task.CompletedTask;
-		//}
-
-		//public Task StopAsync(CancellationToken cancellationToken)
-		//{
-		//    return Task.CompletedTask;
-		//}
 	}
 }
