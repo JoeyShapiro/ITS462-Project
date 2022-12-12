@@ -33,5 +33,18 @@ namespace ProjectServerRestfulCore.Controllers
         {
             return Content(Database.GetDevicesFromDBAsXML("CALL list_filtered_devices(\""+filter+"\", \""+chosen+"\");"));
         }
+
+        [Route("Scrape")]
+        [HttpGet]
+        public IActionResult Scrape([FromQuery] string super_secret_passphrase)
+        {
+            // clean database, there could be repeats
+
+            // rescrape websites
+            var neweggs = ScraperService.ScrapeAndInsertFromNewEgg();
+            var bestbuys = ScraperService.ScrapeAndInsertFromBestBuy();
+
+            return Content("Items successfullly added; newegg: "+neweggs+"; bestbuy: "+bestbuys);
+        }
     }
 }

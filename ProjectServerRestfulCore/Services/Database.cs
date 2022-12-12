@@ -66,6 +66,7 @@ namespace ProjectServerRestful.Services
             doc.AppendChild(results);
 
             reader.Close();
+			conn.Close();
 
             return doc.OuterXml;
         }
@@ -96,8 +97,23 @@ namespace ProjectServerRestful.Services
 			doc.AppendChild(results);
 
             reader.Close();
+			conn.Close();
 
             return doc.OuterXml;
+        }
+
+		public static int AddDevice(string computer_type, string vendor, string model, double price, string link, string description, string specs)
+		{
+            var conn = connect();
+			var stmt = string.Format("CALL add_device('{0}', '{1}', '{2}', {3}, '{4}', '{5}', '{6}');", computer_type, vendor, model, price, link, description.Replace("'", "\\'"), specs);
+            var reader = query(conn, stmt);
+
+			var result = reader.RecordsAffected;
+
+            reader.Close();
+			conn.Close();
+
+			return result;
         }
 
 		private static MySqlDataReader query(MySqlConnection conn, string stmt)
