@@ -5,6 +5,7 @@ namespace ProjectServerRestful.Services
 {
 	public class ScraperService //: IHostedService
 	{
+		public const int MAX_AFFECTED = 50;
 
 		// best way, considering sites are different
 		public static int ScrapeAndInsertFromNewEgg()
@@ -28,7 +29,7 @@ namespace ProjectServerRestful.Services
 
 				// brand
 				var tag_brand = device.SelectNodes(".//a[@class='item-brand']");
-				var brand = tag_brand?.FirstOrDefault()?.SelectNodes(".//img")[0].Attributes["alt"].Value ?? "unknown";
+				var brand = tag_brand?.FirstOrDefault()?.SelectNodes(".//img")[0].Attributes["alt"].Value ?? "Unknown";
 
 				// price
 				var tag_price = device.SelectNodes(".//li[@class='price-current']");
@@ -51,6 +52,10 @@ namespace ProjectServerRestful.Services
 
 				// add to database and increase the counter by 1. if it fails, we dont care
 				affected += Database.AddDevice(type, brand, model, price, link, desc, specs);
+
+				// if it hits the max, stop requesting
+				if (affected >= MAX_AFFECTED)
+					break;
             }
 
             return affected;
@@ -58,7 +63,48 @@ namespace ProjectServerRestful.Services
 
 		public static int ScrapeAndInsertFromBestBuy()
 		{
-			return 0;
+            // this is scraping all the desktop computers
+            var url = "https://www.bestbuy.com/site/promo/laptop-and-computer-deals?qp=category_facet%3DAll%20Laptops~pcmcat138500050001";
+            var web = new HtmlWeb();
+            var doc = web.Load(url);
+            var affected = 0;
+
+            var devices = doc.DocumentNode.SelectNodes("//*[@class='shop-sku-list-item']");
+
+			foreach ( var device in devices )
+			{
+                // link, specs
+                var tag_specs = device.SelectNodes(".//h4[@class='sku-title']//a")[0];
+                var link = "https://www.bestbuy.com" + tag_specs.Attributes["href"].Value;
+                var specs = tag_specs.InnerHtml;
+
+                // price
+                var tag_price = device.SelectNodes(".//span[@class='sr-only']").FirstOrDefault();
+				var price = double.Parse(tag_price?.InnerHtml.Replace("Your price for this item is $<!-- -->", "") ?? "0.0");
+
+				// brand
+				var brand = specs.Split(" - ").FirstOrDefault("Unknown");
+
+                // go to link (the page of the computer)
+                doc = web.Load(link);
+
+                // desc
+                var tag_desc = doc.DocumentNode.SelectNodes("//div[@class='html-fragment']");
+                var desc = tag_desc?.FirstOrDefault()?.InnerHtml ?? ""; // if it cant find a desc, set it to unknown;
+																		// model
+				var tag_model = doc.DocumentNode.SelectNodes("//span[@class='product-data-value body-copy']");
+				var model = tag_model[0].InnerHtml;
+                // type
+				var type = "laptop";
+
+                // add to database and increase the counter by 1. if it fails, we dont care
+                affected += Database.AddDevice(type, brand, model, price, link, desc, specs);
+
+				if (affected >= MAX_AFFECTED / 20) // make it smaller, bestbuy takes a while
+					break;
+            }
+
+            return affected;
 		}
 
 		//public Task StartAsync(CancellationToken cancellationToken)

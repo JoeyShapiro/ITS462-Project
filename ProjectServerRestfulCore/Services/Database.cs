@@ -105,7 +105,8 @@ namespace ProjectServerRestful.Services
 		public static int AddDevice(string computer_type, string vendor, string model, double price, string link, string description, string specs)
 		{
             var conn = connect();
-			var stmt = string.Format("CALL add_device('{0}', '{1}', '{2}', {3}, '{4}', '{5}', '{6}');", computer_type, vendor, model, price, link, description.Replace("'", "\\'"), specs);
+			var desc = description.Length > 1024 ? Truncate(description, 1024) : description;
+			var stmt = string.Format("CALL add_device('{0}', '{1}', '{2}', {3}, '{4}', '{5}', '{6}');", computer_type, vendor, model, price, link, desc.Replace("\'", "\\'"), specs);
             var reader = query(conn, stmt);
 
 			var result = reader.RecordsAffected;
@@ -115,6 +116,22 @@ namespace ProjectServerRestful.Services
 
 			return result;
         }
+
+        private static string Truncate(string value, int maxLength, string truncationSuffix = "...")
+        {
+			// the "-3" is for the "..."
+			return value.Substring(maxLength - 3) + truncationSuffix;
+        }
+
+        public static void CleanDB()
+		{
+			var conn = connect();
+			var stmt = "truncate devices";
+			var reader = query(conn, stmt);
+
+			reader.Close();
+			conn.Close();
+		}
 
 		private static MySqlDataReader query(MySqlConnection conn, string stmt)
 		{

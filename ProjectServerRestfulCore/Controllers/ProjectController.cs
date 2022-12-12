@@ -38,13 +38,19 @@ namespace ProjectServerRestfulCore.Controllers
         [HttpGet]
         public IActionResult Scrape([FromQuery] string super_secret_passphrase)
         {
+            // authentication check
+            if (super_secret_passphrase != "project")
+                return Content("Invalid token");
+
             // clean database, there could be repeats
+            Database.CleanDB();
 
             // rescrape websites
-            var neweggs = ScraperService.ScrapeAndInsertFromNewEgg();
+            var neweggs =  ScraperService.ScrapeAndInsertFromNewEgg();
             var bestbuys = ScraperService.ScrapeAndInsertFromBestBuy();
 
-            return Content("Items successfullly added; newegg: "+neweggs+"; bestbuy: "+bestbuys);
+            // return the amount of affected rows for each scrape
+            return Content("Items successfullly added (Max = "+ScraperService.MAX_AFFECTED+"); newegg: "+neweggs+"; bestbuy: "+bestbuys);
         }
     }
 }
