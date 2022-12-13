@@ -106,19 +106,31 @@ namespace ProjectClient
             }
         }
 
+        //public async Task<List<string>> getDetailedDevices(string id)
+        public async void getFilteredDevices(string filter, string chosen)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:5206/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await client.GetAsync("api/Project/GetFilteredDevices?filter=" + filter + "&chosen=" + chosen);
+                string xml_string = "";
+                xml_string = await response.Content.ReadAsStringAsync();
+                //List<string> xml_list = xmlToList(xml_string, "results");
+                xmlToList(xml_string, "devices");
+                //return xml_list;
+            }
+            catch (Exception ex)
+            {
+                textBox1.Text = "Error connecting to the API";
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(comboBox1.SelectedItem.ToString() == "Filters")
-            {
-                textBox1.Text = "";
-                getFiltersAsList();
-            }
-
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -154,6 +166,17 @@ namespace ProjectClient
         {
             textBox1.Text = "";
             getDevicesAsList();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            getFilteredDevices(comboBox1.SelectedItem.ToString(), textBox3.Text);
         }
     }
 }
