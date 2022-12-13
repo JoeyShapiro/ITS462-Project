@@ -40,7 +40,9 @@ The server is written in .NET core. It has the following API Calls that allow fo
 ```
 <br>
 It should be noted, that each api call uses stored procedures. It is strongly reccommended that any future changes, should use the 
-given procedures, if a new statement is needed, then a new procedure should be created.
+given procedures, if a new statement is needed, then a new procedure should be created.<br>
+<br>
+The folder `xmlStructures` or the sln filter `Supporting Documents/Responses Samples` contains sample responses from the API.
 
 ## Client
 The client allows for an easy way for a user to interact with the server. It should be noted that the user can interact with the API 
