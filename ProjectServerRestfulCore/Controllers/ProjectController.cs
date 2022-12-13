@@ -6,6 +6,7 @@ namespace ProjectServerRestfulCore.Controllers
     [Route("api/[controller]")]
     public class ProjectController : Controller
     {
+        // gets all devices (id, model, price)
         [Route("GetDevices")]
         [HttpGet]
         public IActionResult GetDevices()
@@ -13,6 +14,7 @@ namespace ProjectServerRestfulCore.Controllers
             return Content(Database.GetDevicesFromDBAsXML("CALL list_devices();"));
         }
 
+        // get details of a device (select * from devices where id=id)
         [Route("GetDeviceDetails")]
         [HttpGet]
         public IActionResult GetDeviceDetails([FromQuery] int id)
@@ -20,6 +22,7 @@ namespace ProjectServerRestfulCore.Controllers
             return Content(Database.GetDeviceDetailsFromDBAsXML("CALL get_device_details(" + id + ");"));
         }
 
+        // gets all filters to use (all cols of a table)
         [Route("GetFilters")]
         [HttpGet]
         public IActionResult GetFilters()
@@ -27,6 +30,7 @@ namespace ProjectServerRestfulCore.Controllers
             return Content(Database.GetDeviceFiltersFromDBAsXML());
         }
 
+        // get all devices using a filter (like search)
         [Route("GetFilteredDevices")]
         [HttpGet]
         public IActionResult GetFiltedDevices([FromQuery] string filter, string chosen)
@@ -34,6 +38,7 @@ namespace ProjectServerRestfulCore.Controllers
             return Content(Database.GetDevicesFromDBAsXML("CALL list_filtered_devices(\""+filter+"\", \""+chosen+"\");"));
         }
 
+        // scrapes the websites and puts in db. WARNING truncates table
         [Route("Scrape")]
         [HttpGet]
         public IActionResult Scrape([FromQuery] string super_secret_passphrase)
