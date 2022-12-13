@@ -28,7 +28,7 @@ CREATE USER 'end_user'@'localhost'
 DELIMITER //
 CREATE PROCEDURE list_devices ()
     BEGIN
-        SELECT id, model, price FROM devices;
+        SELECT id, model, price FROM devices ORDER BY price;
     END //
 
 -- returns details on a specific device
@@ -42,7 +42,7 @@ CREATE PROCEDURE get_device_details(IN given_id int)
 DELIMITER //
 CREATE PROCEDURE list_filtered_devices(IN filter_column varchar(16), IN filter_chosen varchar(128))
     BEGIN
-        SET @stmt=CONCAT('SELECT id, model, price FROM devices WHERE ', filter_column, '=\'',filter_chosen, '\'');
+        SET @stmt=CONCAT('SELECT id, model, price FROM devices WHERE ', filter_column, ' LIKE \'%',filter_chosen, '%\' ORDER BY price');
         -- SELECT id, model, price FROM devices WHERE filter_column=filter_chosen;
         PREPARE stmt_prepared FROM @stmt;
         EXECUTE stmt_prepared;
