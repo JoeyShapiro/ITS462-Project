@@ -169,14 +169,14 @@ namespace ProjectClient
                 client.BaseAddress = new Uri("http://localhost:5206/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await client.GetAsync("api/Project/Scrape?super_secret_passphrase=password");
+                HttpResponseMessage response = await client.GetAsync("api/Project/Scrape?super_secret_passphrase=project");
                 if (response.IsSuccessStatusCode)
                 {
-                    deviceDetailsBox.Text = "Successfully scraped data from Newegg";
+                    deviceDetailsBox.Text = "Successfully scraped the data";
                 }
                 else
                 {
-                    deviceDetailsBox.Text = "Error scraping data from Newegg";
+                    deviceDetailsBox.Text = "Error scraping the data";
                 }
             }catch(Exception ex)
             {
