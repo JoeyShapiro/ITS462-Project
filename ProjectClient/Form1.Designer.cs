@@ -48,7 +48,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(374, 378);
+            this.textBox1.Size = new System.Drawing.Size(503, 378);
             this.textBox1.TabIndex = 1;
             // 
             // textBox2
@@ -101,11 +101,8 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "link",
-            "model",
-            "price",
             "vendor",
-            "id"});
+            "computer_type"});
             this.comboBox1.Location = new System.Drawing.Point(74, 64);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(157, 28);
@@ -160,7 +157,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1074, 450);
+            this.ClientSize = new System.Drawing.Size(1272, 553);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label3);

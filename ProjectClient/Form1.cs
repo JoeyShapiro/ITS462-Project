@@ -52,8 +52,35 @@ namespace ProjectClient
 
             return list;
         }
-        //public async Task<List<string>> getFiltersAsList()
-        public async void getFiltersAsList()
+
+        private List<string> xmlToList2(string xml, string choice)
+        {
+            listBox1.Items.Clear();
+            List<string> list = new List<string>();
+
+            // load the xml
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+
+            // get the root element
+            XmlNode items = doc.GetElementsByTagName(choice)[0];
+
+            // add each item
+            foreach (XmlNode item in items)
+            {
+                string this_line = "";
+                foreach (XmlNode element in item)
+                {
+                    this_line += (element.Name + ": " + element.InnerText + " ");
+                    //Console.WriteLine(element.Name + " " + element.InnerText);
+                }
+                listBox1.Items.Add(this_line);
+            }
+
+            return list;
+        }
+
+        public async Task<List<string>> getFiltersAsList()
 
         {
             HttpClient client = new HttpClient();
@@ -63,13 +90,12 @@ namespace ProjectClient
             HttpResponseMessage response = await client.GetAsync("api/Project/GetFilters");
             string xml_string = "";
             xml_string = await response.Content.ReadAsStringAsync();
-            //List<string> xml_list = xmlToList(xml_string, "filters");
+            List<string> xml_list = xmlToList(xml_string, "filters");
             xmlToList(xml_string, "filters");
-            //return xml_list;
+            return xml_list;
         }
 
-        //public async Task<List<string>> getDevicesAsList()
-        public async void getDevicesAsList()
+        public async Task<List<string>> getDevicesAsList()
 
         {
             HttpClient client = new HttpClient();
@@ -79,13 +105,13 @@ namespace ProjectClient
             HttpResponseMessage response = await client.GetAsync("api/Project/GetDevices");
             string xml_string = "";
             xml_string = await response.Content.ReadAsStringAsync();
-            //List<string> xml_list = xmlToList(xml_string, "devices");
-            xmlToList(xml_string, "devices");
-            //return xml_list;
+            List<string> xml_list = xmlToList(xml_string, "devices");
+            //xmlToList(xml_string, "devices");
+            return xml_list;
         }
 
-        //public async Task<List<string>> getDetailedDevices(string id)
-        public async void getDetailedDevices(string id)
+        public async Task<List<string>> getDetailedDevices(string id)
+        //public async void getDetailedDevices(string id)
         {
             try
             {
@@ -96,18 +122,19 @@ namespace ProjectClient
                 HttpResponseMessage response = await client.GetAsync("api/Project/GetDeviceDetails?id=" + id);
                 string xml_string = "";
                 xml_string = await response.Content.ReadAsStringAsync();
-                //List<string> xml_list = xmlToList(xml_string, "results");
-                xmlToList(xml_string, "results");
-                //return xml_list;
+                List<string> xml_list = xmlToList(xml_string, "results");
+                //xmlToList(xml_string, "results");
+                return xml_list;
             }
             catch(Exception ex)
             {
                 textBox1.Text = "Error connecting to the API";
+                return new List<string>();
             }
         }
 
-        //public async Task<List<string>> getDetailedDevices(string id)
-        public async void getFilteredDevices(string filter, string chosen)
+        public async Task<List<string>> getFilteredDevices(string filter, string chosen)
+        //public async void getDetailedDevices(string id)
         {
             try
             {
@@ -115,16 +142,17 @@ namespace ProjectClient
                 client.BaseAddress = new Uri("http://localhost:5206/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await client.GetAsync("api/Project/GetFilteredDevices?filter=" + filter + "&chosen=" + chosen);
+                HttpResponseMessage response = await client.GetAsync("api/Project/GetFilteredDevices?filter=" + filter + "&chosen=" +  chosen);
                 string xml_string = "";
                 xml_string = await response.Content.ReadAsStringAsync();
-                //List<string> xml_list = xmlToList(xml_string, "results");
-                xmlToList(xml_string, "devices");
-                //return xml_list;
+                List<string> xml_list = xmlToList2(xml_string, "devices");
+                //xmlToList(xml_string, "results");
+                return xml_list;
             }
             catch (Exception ex)
             {
                 textBox1.Text = "Error connecting to the API";
+                return new List<string>();
             }
         }
 
@@ -159,24 +187,27 @@ namespace ProjectClient
         private void button2_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            getDetailedDevices(textBox2.Text);
+            _ = getDetailedDevices(textBox2.Text);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            getDevicesAsList();
+            _ = getDevicesAsList();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string[] id_arr = listBox1.SelectedItem.ToString().Split(':');
+            string id = id_arr[1].Trim().Split(' ')[0];
+            _ = getDetailedDevices(id);
             textBox1.Text = "";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            getFilteredDevices(comboBox1.SelectedItem.ToString(), textBox3.Text);
+            _ =  getFilteredDevices(comboBox1.SelectedItem.ToString(), textBox3.Text);
         }
     }
 }
