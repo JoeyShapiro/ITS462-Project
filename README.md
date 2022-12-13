@@ -47,13 +47,13 @@ The client allows for an easy way for a user to interact with the server. It sho
 directly, or create their own client application.<br>
 <br>
 Looking at the app and going from top-left to bottom-right:<br>
-Filter: is a dropdown that selects the `filter` in the API Calls<br>
-Search: selects `chosen` for the API Calls<br>
-Get Device by Filter: runs the api call `GetFilteredDevices`<br>
-ID: Allows to search by ID. It will return a detailed list<br>
-Get All Devices: retrieves all the devices with no filter<br>
-Print To PDF: prints the list view to a pdf with details for each item on its own page<br>
-Scrape Data: allows for scraping the database<br>
+*Filter*: is a dropdown that selects the `filter` in the API Calls<br>
+*Search*: selects `chosen` for the API Calls<br>
+*Get Device by Filter*: runs the api call `GetFilteredDevices`<br>
+*ID*: Allows to search by ID. It will return a detailed list<br>
+*Get All Devices*: retrieves all the devices with no filter<br>
+*Print To PDF*: prints the list view to a pdf with details for each item on its own page<br>
+*Scrape Data*: allows for scraping the database<br>
 <br>
-List View Box: list of all returned items (id, model, price)
-TextArea: detailed report of item (everything from its row)
+*List View Box*: list of all returned items (id, model, price)
+*TextArea*: detailed report of item (everything from its row)
