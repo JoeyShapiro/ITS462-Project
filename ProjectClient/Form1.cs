@@ -34,20 +34,20 @@ namespace ProjectClient
                 {
                     if(choice == "filters")
                     {
-                        textBox1.Text += element.InnerText + " ";
+                        deviceDetailsBox.Text += element.InnerText + " ";
                         //Console.WriteLine(element.InnerText);
                     }
                     else if(choice == "results")
                     {
-                        textBox1.Text += element.Name + ": " + element.InnerText + "\r\n";
+                        deviceDetailsBox.Text += element.Name + ": " + element.InnerText + "\r\n";
                     }
                     else
                     {
-                        textBox1.Text += (element.Name + ": " + element.InnerText + " ");
+                        deviceDetailsBox.Text += (element.Name + ": " + element.InnerText + " ");
                         //Console.WriteLine(element.Name + " " + element.InnerText);
                     }
                 }
-                textBox1.Text += "\r\n";
+                deviceDetailsBox.Text += "\r\n";
             }
 
             return list;
@@ -55,7 +55,7 @@ namespace ProjectClient
 
         private List<string> xmlToList2(string xml, string choice)
         {
-            listBox1.Items.Clear();
+            filterResultsBox.Items.Clear();
             List<string> list = new List<string>();
 
             // load the xml
@@ -74,7 +74,7 @@ namespace ProjectClient
                     this_line += (element.Name + ": " + element.InnerText + " ");
                     //Console.WriteLine(element.Name + " " + element.InnerText);
                 }
-                listBox1.Items.Add(this_line);
+                filterResultsBox.Items.Add(this_line);
             }
 
             return list;
@@ -105,7 +105,7 @@ namespace ProjectClient
             HttpResponseMessage response = await client.GetAsync("api/Project/GetDevices");
             string xml_string = "";
             xml_string = await response.Content.ReadAsStringAsync();
-            List<string> xml_list = xmlToList(xml_string, "devices");
+            List<string> xml_list = xmlToList2(xml_string, "devices");
             //xmlToList(xml_string, "devices");
             return xml_list;
         }
@@ -128,7 +128,7 @@ namespace ProjectClient
             }
             catch(Exception ex)
             {
-                textBox1.Text = "Error connecting to the API";
+                deviceDetailsBox.Text = "Error connecting to the API";
                 return new List<string>();
             }
         }
@@ -151,7 +151,7 @@ namespace ProjectClient
             }
             catch (Exception ex)
             {
-                textBox1.Text = "Error connecting to the API";
+                deviceDetailsBox.Text = "Error connecting to the API";
                 return new List<string>();
             }
         }
@@ -172,42 +172,42 @@ namespace ProjectClient
                 HttpResponseMessage response = await client.GetAsync("api/Project/Scrape?super_secret_passphrase=password");
                 if (response.IsSuccessStatusCode)
                 {
-                    textBox1.Text = "Successfully scraped data from Newegg";
+                    deviceDetailsBox.Text = "Successfully scraped data from Newegg";
                 }
                 else
                 {
-                    textBox1.Text = "Error scraping data from Newegg";
+                    deviceDetailsBox.Text = "Error scraping data from Newegg";
                 }
             }catch(Exception ex)
             {
-                textBox1.Text = "Error connecting to the API";
+                deviceDetailsBox.Text = "Error connecting to the API";
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "";
-            _ = getDetailedDevices(textBox2.Text);
+            deviceDetailsBox.Text = "";
+            _ = getDetailedDevices(idBox.Text);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "";
+            deviceDetailsBox.Text = "";
             _ = getDevicesAsList();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] id_arr = listBox1.SelectedItem.ToString().Split(':');
+            string[] id_arr = filterResultsBox.SelectedItem.ToString().Split(':');
             string id = id_arr[1].Trim().Split(' ')[0];
             _ = getDetailedDevices(id);
-            textBox1.Text = "";
+            deviceDetailsBox.Text = "";
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void getDeviceByFilterBtn_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "";
-            _ =  getFilteredDevices(comboBox1.SelectedItem.ToString(), textBox3.Text);
+            deviceDetailsBox.Text = "";
+            _ = getFilteredDevices(filterBox.SelectedItem.ToString(), searchBox.Text);
         }
     }
 }

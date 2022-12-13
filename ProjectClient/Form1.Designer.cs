@@ -28,148 +28,161 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.deviceDetailsBox = new System.Windows.Forms.TextBox();
+            this.idBox = new System.Windows.Forms.TextBox();
+            this.scrapeDataBtn = new System.Windows.Forms.Button();
+            this.getDeviceByIdBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.getAllDevicesBtn = new System.Windows.Forms.Button();
+            this.filterBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.filterResultsBox = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.searchBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.getDeviceByFilterBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // deviceDetailsBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(688, 61);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(503, 378);
-            this.textBox1.TabIndex = 1;
+            this.deviceDetailsBox.Location = new System.Drawing.Point(688, 61);
+            this.deviceDetailsBox.Multiline = true;
+            this.deviceDetailsBox.Name = "deviceDetailsBox";
+            this.deviceDetailsBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.deviceDetailsBox.Size = new System.Drawing.Size(503, 378);
+            this.deviceDetailsBox.TabIndex = 1;
             // 
-            // textBox2
+            // idBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(58, 150);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(157, 26);
-            this.textBox2.TabIndex = 2;
+            this.idBox.Location = new System.Drawing.Point(74, 232);
+            this.idBox.Name = "idBox";
+            this.idBox.Size = new System.Drawing.Size(157, 26);
+            this.idBox.TabIndex = 2;
             // 
-            // button1
+            // scrapeDataBtn
             // 
-            this.button1.Location = new System.Drawing.Point(12, 382);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(157, 47);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Scrape Newegg";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.scrapeDataBtn.Location = new System.Drawing.Point(12, 494);
+            this.scrapeDataBtn.Name = "scrapeDataBtn";
+            this.scrapeDataBtn.Size = new System.Drawing.Size(157, 47);
+            this.scrapeDataBtn.TabIndex = 3;
+            this.scrapeDataBtn.Text = "Scrape Data";
+            this.scrapeDataBtn.UseVisualStyleBackColor = true;
+            this.scrapeDataBtn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // getDeviceByIdBtn
             // 
-            this.button2.Location = new System.Drawing.Point(58, 182);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(157, 47);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Get Device by ID";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.getDeviceByIdBtn.Location = new System.Drawing.Point(74, 264);
+            this.getDeviceByIdBtn.Name = "getDeviceByIdBtn";
+            this.getDeviceByIdBtn.Size = new System.Drawing.Size(157, 47);
+            this.getDeviceByIdBtn.TabIndex = 4;
+            this.getDeviceByIdBtn.Text = "Get Device by ID";
+            this.getDeviceByIdBtn.UseVisualStyleBackColor = true;
+            this.getDeviceByIdBtn.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 150);
+            this.label1.Location = new System.Drawing.Point(12, 235);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 20);
             this.label1.TabIndex = 5;
             this.label1.Text = "ID";
             // 
-            // button3
+            // getAllDevicesBtn
             // 
-            this.button3.Location = new System.Drawing.Point(12, 305);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(157, 47);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Get All Devices";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.getAllDevicesBtn.Location = new System.Drawing.Point(12, 411);
+            this.getAllDevicesBtn.Name = "getAllDevicesBtn";
+            this.getAllDevicesBtn.Size = new System.Drawing.Size(157, 47);
+            this.getAllDevicesBtn.TabIndex = 6;
+            this.getAllDevicesBtn.Text = "Get All Devices";
+            this.getAllDevicesBtn.UseVisualStyleBackColor = true;
+            this.getAllDevicesBtn.Click += new System.EventHandler(this.button3_Click);
             // 
-            // comboBox1
+            // filterBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.filterBox.FormattingEnabled = true;
+            this.filterBox.Items.AddRange(new object[] {
             "vendor",
-            "computer_type"});
-            this.comboBox1.Location = new System.Drawing.Point(74, 64);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(157, 28);
-            this.comboBox1.TabIndex = 7;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            "computer_type",
+            "link"});
+            this.filterBox.Location = new System.Drawing.Point(74, 38);
+            this.filterBox.Name = "filterBox";
+            this.filterBox.Size = new System.Drawing.Size(157, 28);
+            this.filterBox.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 67);
+            this.label2.Location = new System.Drawing.Point(8, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 20);
             this.label2.TabIndex = 8;
             this.label2.Text = "Filter";
             // 
-            // listBox1
+            // filterResultsBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(300, 67);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(346, 364);
-            this.listBox1.TabIndex = 9;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.filterResultsBox.FormattingEnabled = true;
+            this.filterResultsBox.ItemHeight = 20;
+            this.filterResultsBox.Location = new System.Drawing.Point(300, 67);
+            this.filterResultsBox.Name = "filterResultsBox";
+            this.filterResultsBox.Size = new System.Drawing.Size(346, 364);
+            this.filterResultsBox.TabIndex = 9;
+            this.filterResultsBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(817, 38);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(868, 38);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 20);
+            this.label3.Size = new System.Drawing.Size(124, 20);
             this.label3.TabIndex = 10;
             this.label3.Text = "Device Details";
             // 
-            // textBox3
+            // searchBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(74, 21);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(157, 26);
-            this.textBox3.TabIndex = 11;
+            this.searchBox.Location = new System.Drawing.Point(74, 84);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(157, 26);
+            this.searchBox.TabIndex = 11;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 21);
+            this.label4.Location = new System.Drawing.Point(8, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 20);
             this.label4.TabIndex = 12;
             this.label4.Text = "Search";
+            // 
+            // getDeviceByFilterBtn
+            // 
+            this.getDeviceByFilterBtn.Location = new System.Drawing.Point(74, 116);
+            this.getDeviceByFilterBtn.Name = "getDeviceByFilterBtn";
+            this.getDeviceByFilterBtn.Size = new System.Drawing.Size(157, 60);
+            this.getDeviceByFilterBtn.TabIndex = 13;
+            this.getDeviceByFilterBtn.Text = "Get Device by Filter";
+            this.getDeviceByFilterBtn.UseVisualStyleBackColor = true;
+            this.getDeviceByFilterBtn.Click += new System.EventHandler(this.getDeviceByFilterBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1272, 553);
+            this.Controls.Add(this.getDeviceByFilterBtn);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.searchBox);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.filterResultsBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.filterBox);
+            this.Controls.Add(this.getAllDevicesBtn);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.getDeviceByIdBtn);
+            this.Controls.Add(this.scrapeDataBtn);
+            this.Controls.Add(this.idBox);
+            this.Controls.Add(this.deviceDetailsBox);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -178,18 +191,19 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox deviceDetailsBox;
+        private System.Windows.Forms.TextBox idBox;
+        private System.Windows.Forms.Button scrapeDataBtn;
+        private System.Windows.Forms.Button getDeviceByIdBtn;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button getAllDevicesBtn;
+        private System.Windows.Forms.ComboBox filterBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox filterResultsBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button getDeviceByFilterBtn;
     }
 }
 
