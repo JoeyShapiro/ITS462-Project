@@ -258,7 +258,13 @@ namespace ProjectClient
         private void getDeviceByFilterBtn_Click(object sender, EventArgs e)
         {
             deviceDetailsBox.Text = "";
-            _ = getFilteredDevices(filterBox.SelectedItem.ToString(), searchBox.Text);
+            var item = filterBox.SelectedItem ?? "";
+            if (item.ToString() == "")
+            {
+                MessageBox.Show("Please Select a Filter", "Error");
+                return;
+            }
+            _ = getFilteredDevices(item.ToString(), searchBox.Text);
         }
 
         private async void btnPDF_Click(object sender, EventArgs e)
