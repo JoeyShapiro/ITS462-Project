@@ -11,6 +11,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
+// for printing to pdf
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System.Diagnostics;
+using PdfSharp.Pdf.AcroForms;
+using PdfSharp.Drawing.Layout;
 
 namespace ProjectClient
 {
@@ -30,24 +36,29 @@ namespace ProjectClient
             // add each item
             foreach (XmlNode item in items)
             {
+                   var text = "";
                 foreach (XmlNode element in item)
                 {
                     if(choice == "filters")
                     {
                         deviceDetailsBox.Text += element.InnerText + " ";
                         //Console.WriteLine(element.InnerText);
+                        text += element.InnerText + " ";
                     }
                     else if(choice == "results")
                     {
                         deviceDetailsBox.Text += element.Name + ": " + element.InnerText + "\r\n";
+                        text += element.Name + ": " + element.InnerText + "\r\n";
                     }
                     else
                     {
                         deviceDetailsBox.Text += (element.Name + ": " + element.InnerText + " ");
                         //Console.WriteLine(element.Name + " " + element.InnerText);
+                        text += (element.Name + ": " + element.InnerText + " ");
                     }
                 }
                 deviceDetailsBox.Text += "\r\n";
+                list.Add(text + "\r\n\r\n");
             }
 
             return list;
@@ -75,6 +86,7 @@ namespace ProjectClient
                     //Console.WriteLine(element.Name + " " + element.InnerText);
                 }
                 filterResultsBox.Items.Add(this_line);
+                list.Add(this_line);
             }
 
             return list;
@@ -163,6 +175,8 @@ namespace ProjectClient
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            var message = "";
+            var caption = "Error";
             try
             {
                 HttpClient client = new HttpClient();
@@ -173,15 +187,20 @@ namespace ProjectClient
                 if (response.IsSuccessStatusCode)
                 {
                     deviceDetailsBox.Text = "Successfully scraped the data";
+                    message = await response.Content.ReadAsStringAsync();
+                    caption = "Success";
                 }
                 else
                 {
                     deviceDetailsBox.Text = "Error scraping the data";
+                    message = "Error scraping the data";
                 }
             }catch(Exception ex)
             {
-                deviceDetailsBox.Text = "Error connecting to the API";
+                deviceDetailsBox.Text = "Error connecting to the API: " + ex.Message;
+                message = "Error connecting to the API: " + ex.Message;
             }
+            MessageBox.Show(message, caption);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -208,6 +227,37 @@ namespace ProjectClient
         {
             deviceDetailsBox.Text = "";
             _ = getFilteredDevices(filterBox.SelectedItem.ToString(), searchBox.Text);
+        }
+
+        private async void btnPDF_Click(object sender, EventArgs e)
+        {
+            //Create PDF Document
+            var document = new PdfDocument();
+
+            foreach (var device_string in filterResultsBox.Items.Cast<string>().ToList())
+            {
+                var id = device_string.Split(' ')[1];
+
+                var device = await getDetailedDevices(id);
+
+                // set the apge parameters
+                var page = document.AddPage();
+                var gfx = XGraphics.FromPdfPage(page);
+                var font = new XFont("Verdana", 12, XFontStyle.Bold);
+
+                // draw the stuff
+                var tf = new XTextFormatter(gfx);
+                tf.DrawString(device[0], font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height));
+            }
+
+            //Specify file name of the PDF file
+            string filename = "results.pdf";
+            //Save PDF File
+            document.Save(filename);
+            //Load PDF File for viewing
+            Process.Start(filename);
+
+            MessageBox.Show("Saved detailed list to \"results.pdf\"", "Success");
         }
     }
 }
