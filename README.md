@@ -36,11 +36,24 @@ The server is written in .NET core. It has the following API Calls that allow fo
 /api/project/GetDeviceDetails?id= - Gets all the details (every col of the DB) for a given device id
 /api/project/GetFilters - gets all available filters (columns in DB)
 /api/project/GetFilteredDevices?filter=&chosen= - given a filter and a chosen search, will get all items that meet these requirements
-/api/project/Scrape?super_secret_passphrase= - Given a passphrase, will scrape the websites (bestbuy, newegg)
+/api/project/Scrape?super_secret_passphrase= - Given a passphrase, will scrape the websites (bestbuy, newegg) and place it in the DB (CLEARS DB)
 ```
 <br>
 It should be noted, that each api call uses stored procedures. It is strongly reccommended that any future changes, should use the 
 given procedures, if a new statement is needed, then a new procedure should be created.
 
 ## Client
-
+The client allows for an easy way for a user to interact with the server. It should be noted that the user can interact with the API 
+directly, or create their own client application.<br>
+<br>
+Looking at the app and going from top-left to bottom-right:<br>
+Filter: is a dropdown that selects the `filter` in the API Calls<br>
+Search: selects `chosen` for the API Calls<br>
+Get Device by Filter: runs the api call `GetFilteredDevices`<br>
+ID: Allows to search by ID. It will return a detailed list<br>
+Get All Devices: retrieves all the devices with no filter<br>
+Print To PDF: prints the list view to a pdf with details for each item on its own page<br>
+Scrape Data: allows for scraping the database<br>
+<br>
+List View Box: list of all returned items (id, model, price)
+TextArea: detailed report of item (everything from its row)
