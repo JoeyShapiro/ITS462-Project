@@ -37,9 +37,13 @@ namespace ProjectClient
                         textBox1.Text += element.InnerText + " ";
                         //Console.WriteLine(element.InnerText);
                     }
+                    else if(choice == "results")
+                    {
+                        textBox1.Text += element.Name + ": " + element.InnerText + "\r\n";
+                    }
                     else
                     {
-                        textBox1.Text += (element.Name + " " + element.InnerText + " ");
+                        textBox1.Text += (element.Name + ": " + element.InnerText + " ");
                         //Console.WriteLine(element.Name + " " + element.InnerText);
                     }
                 }
@@ -48,7 +52,9 @@ namespace ProjectClient
 
             return list;
         }
-        public async Task<List<string>> getFiltersAsList()
+        //public async Task<List<string>> getFiltersAsList()
+        public async void getFiltersAsList()
+
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5206/");
@@ -57,11 +63,14 @@ namespace ProjectClient
             HttpResponseMessage response = await client.GetAsync("api/Project/GetFilters");
             string xml_string = "";
             xml_string = await response.Content.ReadAsStringAsync();
-            List<string> xml_list = xmlToList(xml_string, "filters");
-            return xml_list;
+            //List<string> xml_list = xmlToList(xml_string, "filters");
+            xmlToList(xml_string, "filters");
+            //return xml_list;
         }
 
-        public async Task<List<string>> getDevicesAsList()
+        //public async Task<List<string>> getDevicesAsList()
+        public async void getDevicesAsList()
+
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5206/");
@@ -70,21 +79,31 @@ namespace ProjectClient
             HttpResponseMessage response = await client.GetAsync("api/Project/GetDevices");
             string xml_string = "";
             xml_string = await response.Content.ReadAsStringAsync();
-            List<string> xml_list = xmlToList(xml_string, "devices");
-            return xml_list;
+            //List<string> xml_list = xmlToList(xml_string, "devices");
+            xmlToList(xml_string, "devices");
+            //return xml_list;
         }
 
-        public async Task<List<string>> getDetailedDevices(string id)
+        //public async Task<List<string>> getDetailedDevices(string id)
+        public async void getDetailedDevices(string id)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5206/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await client.GetAsync("api/Project/GetDeviceDetails?id="+id);
-            string xml_string = "";
-            xml_string = await response.Content.ReadAsStringAsync();
-            List<string> xml_list = xmlToList(xml_string, "results");
-            return xml_list;
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:5206/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await client.GetAsync("api/Project/GetDeviceDetails?id=" + id);
+                string xml_string = "";
+                xml_string = await response.Content.ReadAsStringAsync();
+                //List<string> xml_list = xmlToList(xml_string, "results");
+                xmlToList(xml_string, "results");
+                //return xml_list;
+            }
+            catch(Exception ex)
+            {
+                textBox1.Text = "Error connecting to the API";
+            }
         }
 
         public Form1()
@@ -94,22 +113,47 @@ namespace ProjectClient
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox1.SelectedItem.ToString() == "Detailed Devices")
+            if(comboBox1.SelectedItem.ToString() == "Filters")
             {
                 textBox1.Text = "";
-                _ = getDetailedDevices(textBox2.Text);
-            }
-            else if(comboBox1.SelectedItem.ToString() == "Filters")
-            {
-                textBox1.Text = "";
-                _ = getFiltersAsList();
-            }
-            else if (comboBox1.SelectedItem.ToString() == "Devices")
-            {
-                textBox1.Text = "";
-                _ = getDevicesAsList();
+                getFiltersAsList();
             }
 
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:5206/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await client.GetAsync("api/Project/Scrape?super_secret_passphrase=password");
+                if (response.IsSuccessStatusCode)
+                {
+                    textBox1.Text = "Successfully scraped data from Newegg";
+                }
+                else
+                {
+                    textBox1.Text = "Error scraping data from Newegg";
+                }
+            }catch(Exception ex)
+            {
+                textBox1.Text = "Error connecting to the API";
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            getDetailedDevices(textBox2.Text);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            getDevicesAsList();
         }
     }
 }
