@@ -55,5 +55,5 @@ Looking at the app and going from top-left to bottom-right:<br>
 **Print To PDF**: prints the list view to a pdf with details for each item on its own page<br>
 **Scrape Data**: allows for scraping the database<br>
 <br>
-**List View Box**: list of all returned items (id, model, price)
-**TextArea**: detailed report of item (everything from its row)
+**List View Box**: list of all returned items (id, model, price)<br>
+**TextArea**: detailed report of item (everything from its row)<br>
