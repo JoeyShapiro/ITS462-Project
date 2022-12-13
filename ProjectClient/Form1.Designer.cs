@@ -45,7 +45,7 @@
             // 
             // deviceDetailsBox
             // 
-            this.deviceDetailsBox.Location = new System.Drawing.Point(688, 61);
+            this.deviceDetailsBox.Location = new System.Drawing.Point(741, 61);
             this.deviceDetailsBox.Multiline = true;
             this.deviceDetailsBox.Name = "deviceDetailsBox";
             this.deviceDetailsBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -123,9 +123,9 @@
             // 
             this.filterResultsBox.FormattingEnabled = true;
             this.filterResultsBox.ItemHeight = 20;
-            this.filterResultsBox.Location = new System.Drawing.Point(300, 67);
+            this.filterResultsBox.Location = new System.Drawing.Point(284, 67);
             this.filterResultsBox.Name = "filterResultsBox";
-            this.filterResultsBox.Size = new System.Drawing.Size(346, 364);
+            this.filterResultsBox.Size = new System.Drawing.Size(427, 364);
             this.filterResultsBox.TabIndex = 9;
             this.filterResultsBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -133,7 +133,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(868, 38);
+            this.label3.Location = new System.Drawing.Point(941, 38);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(124, 20);
             this.label3.TabIndex = 10;
